@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the efficiency of the Reciprocating Pump.</h3>
+    <p>A reciprocating pump is a positive displacement pump that captures a moving fluid in a cavity and then discharges a fixed amount of it via mechanical pressure. It is a constant volume pump that operates in low flow and high discharge pressure environments.
+    </p>
+    
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\reciprocating.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="P">Power (W):</label>
+            <input type="number" step="0.01" id="power" name="power" placeholder="Enter the Power">
+            <label for="V1">Time (sec):</label>
+            <input type="number" step="0.01" id="time" name="time" placeholder="Enter the time">
+            <label for="R" >Height of Collecting Tank R (cm):</label>
+            <input type="number" step="0.01" id="R" name="R" placeholder="Enter the height"><br><br>
+            <label for="R" >Deleivery Pressure :</label>
+            <input type="number" step="0.01" id="press1" name="press1" placeholder="Enter the pressure">
+            <label for="R" >Vaccum Pressure :</label>
+            <input type="number" step="0.01" id="press2" name="press2" placeholder="Enter the pressure">
+            <label for="R" >Area of Collecting Tank (m<sup>2</sup>):</label>
+            <input type="number" step="0.01" id="area" name="area" placeholder="Enter the area">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Theoratical Discharge (m<sup>2</sup>/sec)</th>
+                <th bgcolor="lightgreen">Actual Discharge (m<sup>2</sup>/sec)</th>
+                <th bgcolor="lightgreen">H.P Pump</th>
+                <th bgcolor="lightgreen">H.P Elect</th>
+                <th bgcolor="lightgreen">H.P Shift</th>
+                <th bgcolor="lightgreen">Overall Efficiency</th>
+                <th bgcolor="lightgreen">Pump Efficiency</th>
+                <th bgcolor="lightgreen">Volumetric Efficiency</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const power = document.getElementById("power").value;
+            const t = document.getElementById("time").value;
+            const R = document.getElementById("R").value;
+            const press1 = document.getElementById("press1").value;
+            const press2 = document.getElementById("press2").value;
+            const area = document.getElementById("area").value;
+            
+            const a=2*area*0.4*280/60;
+            const b=area*R/t;
+            const h=10*press1 + press2/76 + 0.8;
+            const c=1000*b*h/75;
+            const d=power*1.5/t;
+            const x=d*0.8*0.7;
+            const f=c*100/d;
+            const g=c*100/x;
+            const o=b*100/a
+
+            const theoratical=a.toFixed(2);
+            const actual=b.toFixed(2);
+            const pump=c.toFixed(2);
+            const elect=d.toFixed(2);
+            const shift=x.toFixed(2);
+            const overall=f.toFixed(2);
+            const eff=g.toFixed(2);
+            const volumetric=o.toFixed(2);
+            
+            /*const init=0.1/2;
+            const a=0.002 - volume*0.1/1000;
+            const fin=a*1000/volume;
+            const x = 1 - fin/init;
+            const space=60*0.70/flow;
+            const y=space*init*fin;
+            const constant=init/space - fin/space;;
+            let rate=constant.toFixed(3);*/
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${theoratical}</td>
+                <td>${actual}</td>
+                <td>${pump}</td>
+                <td>${elect}</td> 
+                <td>${shift}</td> 
+                <td>${overall}</td>
+                <td>${eff}</td>
+                <td>${volumetric}</td>             
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

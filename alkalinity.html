@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>Experiment on Determination of Alkalinity</h3>
+    <p>Alkalinity is important for fish and aquatic life because it protects or buffers against rapid pH changes. Higher
+        alkalinity levels in surface waters will buffer acid rain and other acid wastes and prevent pH changes that are
+        harmful to aquatic life. In wastewater treatment, alkalinity is an important parameter in determining the
+        amenability of wastes to the treatment process and control of processes such as anaerobic digestion, where
+        bicarbonate alkalinity, total alkalinity, and any fraction contributed by volatile acid salts become
+        considerations.</p>
+    <h3>Principle </h3>
+    <p>
+        The alkalinity of water can be determined by titrating the water sample with Sulphuric acid of known values of
+        pH, volume and concentrations. When a water sample that has a pH of greater than 4.5 is titrated with acid to a
+        pH 4.5 end point, all OH<sup>-</sup>,CO<sub>3</sub><sup>2-</sup>and HCO<sup>3-</sup> will be neutralized. For
+        the pH more than 8.3, add phenolphthalein indicator, the colour changes to pink colour. This pink colour is due
+        to presence of hydroxyl ions. If sulphuric acid is added to it, the pink colour disappears i.e. OH<sup>-</sup>
+        ions are neutralized. Then add mixed indicator, the presence of CO<sub>3</sub><sup>2-</sup> and HCO<sup>3-</sup>
+        ions in the solution changes the colour to blue. While adding sulphuric acid, the color changes to red, this
+        color change indicates that all the CO<sub>3</sub><sup>2-</sup> and HCO<sup>3-</sup> ions has been neutralized.
+        This is the end point.
+    </p>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\alkalinity.png">
+    </p>
+    <h3>Calculation </h3>
+    <section>
+        <form class="form">
+            <label for="V">Volume of sample :</label>
+            <input type="number" step="0.01" id="V" name="V" placeholder="Enter the volume">
+            <label for="V1">Burette Reading Initial :</label>
+            <input type="number" step="0.01" id="V1" name="V1" placeholder="Enter the volume">
+            <label for="V2">Burette Reading Final :</label>
+            <input type="number" step="0.01" id="V2" name="V2" placeholder="Enter the volume">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Volume of Sample</th>
+                <th bgcolor="lightgreen">Burette Reading Initial</th>
+                <th bgcolor="lightgreen">Burette Reading Final</th>
+                <th bgcolor="lightgreen">Phenolphthalein Alkalinity (mg/L)</th>
+                <th bgcolor="lightgreen">Methyl Orange Alkalinity (mg/L)</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const V = document.getElementById("V").value;
+            const V1 = document.getElementById("V1").value;
+            const V2 = document.getElementById("V2").value;
+            const a = (0.1 * V1 * 50 * 1000) / V;
+            const b = (0.1 * (V2 - V1) * 50 * 1000) / V;
+            let phenolphthalein = a.toFixed(2);
+            let total = b.toFixed(2);
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${V}</td>
+                <td>${V1}</td>
+                <td>${V2}</td> 
+                <td>${phenolphthalein}</td>
+                <td>${total}</td>               
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the efficiency of the Centrifugal Pump.</h3>
+    <p>A centrifugal pump is a mechanical device designed to move a fluid by means of the transfer of rotational energy from one or more driven rotors, called impellers. Fluid enters the rapidly rotating impeller along its axis and is cast out by centrifugal force along its circumference through the impeller's vane tips.
+    </p>
+    
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\centrifugal.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="P">Power :</label>
+            <input type="number" step="0.01" id="power" name="V" placeholder="Enter the power">
+            <label for="H">Height :</label>
+            <input type="number" step="0.01" id="height" name="V1" placeholder="Enter the height">
+            <label for="Q" >Discharge (Q) :</label>
+            <input type="number" step="0.01" id="discharge" name="V2" placeholder="Enter the discharge">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Power (watt)</th>
+                <th bgcolor="lightgreen">Height (m) </th>
+                <th bgcolor="lightgreen">Discharge Q (kg/m<sup>3</sup>) </th>
+                <th bgcolor="lightgreen">Efficiency %</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const power = document.getElementById("power").value;
+            const height = document.getElementById("height").value;
+            const discharge = document.getElementById("discharge").value;
+            
+            const a=9.81*height*discharge/power;
+            const eff=a.toFixed(3)*100;
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${power}</td>
+                <td>${height}</td>
+                <td>${discharge}</td>
+                <td>${eff}</td>              
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the emissivity of a gray surface at different temperatures .</h3>
+    <p>According to Stefan - Boltzmann law, the radiation energy emitted by a black body is proportional to the fourth power of the absolute temperature.<br>
+        Q =  σAT<sup>4</sup> where 
+        σ = Stefan Boltzman Constant= 5.6697 x 10<sup>-8</sup> W/m<sup>2</sup> K<sup>4</sup> </h3>
+        <br><br>
+        Emissivity of a surface is a measure of how it emits radiant energy in comparison with a black body at the same temperature, or emissivity of a surface is a ratio of emissive power of the surface to the emissive power of a perfect black body at the same temperature.<br>
+        Є=E/E<sub>b</sub> 
+        <br>
+        Є = Emissivity
+        E = Emissive power of the gray body
+        E<sub>b</sub>= Emissive power of the perfect black body
+    </p>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\emisstivity.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="I">Current I :</label>
+            <input type="number" step="0.01" id="I" name="I" placeholder="Enter the current">
+            <label for="V">Voltage V :</label>
+            <input type="number" step="0.01" id="V" name="V" placeholder="Enter the voltage">
+            <br>
+            <br>
+            <label for="T1">Temperature T1 :</label>
+            <input type="number" step="0.01" id="T1" name="T1" placeholder="Enter the temperature">
+            <label for="T2">Temperature T2 :</label>
+            <input type="number" step="0.01" id="T2" name="T2" placeholder="Enter the temperature">
+            <label for="T3">Temperature T3 :</label>
+            <input type="number" step="0.01" id="T3" name="T3" placeholder="Enter the temperature">
+            <br>
+            <br>
+            <label for="T4">Temperature T4 :</label>
+            <input type="number" step="0.01" id="T4" name="T4" placeholder="Enter the temperature">
+            <label for="T5">Temperature T5 :</label>
+            <input type="number" step="0.01" id="T5" name="T5" placeholder="Enter the temperature">
+            <label for="T6">Temperature T6 :</label>
+            <input type="number" step="0.01" id="T6" name="T6" placeholder="Enter the temperature">
+            <br>
+            <br>
+            <label for="T7">Temperature T7 :</label>
+            <input type="number" step="0.01" id="T7" name="T7" placeholder="Enter the temperature">    
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Heat Input (Q<sub>in</sub>)</th>
+                <th bgcolor="lightgreen">Average Temp Brass (<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Average Temp Black body(<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Chamber Temperature(<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Emmistivity (w/m<sup>2</sup><sup>o</sup>C )</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const t1 = document.getElementById("T1").value;
+            const t2 = document.getElementById("T2").value;
+            const t3 = document.getElementById("T3").value;
+            const t4 = document.getElementById("T4").value;
+            const t5 = document.getElementById("T5").value;
+            const t6 = document.getElementById("T6").value;
+            const t7 = document.getElementById("T7").value;
+            const V = document.getElementById("V").value;
+            const I = document.getElementById("I").value;
+            const a = t1/3 + t2/3 + t3/3 +273;
+            const b =t4/3 + t5/3 + t6/3 +273;
+            const c= t7/1 + 273;
+            const q=V*I;
+            const x=b*b*b*b-c*c*c*c;
+            const y=a*a*a*a-c*c*c*c;
+            const z=x/y;
+            let emmistivity=z.toFixed(2);
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${q}</td>
+                <td>${a}</td>
+                <td>${b}</td> 
+                <td>${c}</td>
+                <td>${emmistivity}</td>              
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

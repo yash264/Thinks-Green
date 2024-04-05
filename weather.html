@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thinks Green</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            background-color: rgba(110, 198, 233, 0.726);
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        #forecast {
+            height: 120px;
+        }
+
+        #city {
+            border-radius: 10px;
+            background-color: rgba(148, 141, 141, 0.118);
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        li{
+            text-align: center;
+            text-decoration: none;
+            display:block;
+        }
+
+        #city:hover {
+            background-color: rgba(100, 237, 141, 0.333);
+        }
+
+        #submit {
+            text-align: center;
+            border-radius: 7px;
+            background-color: rgba(165, 93, 233, 0.705);
+        }
+
+        #submit:hover {
+            background-color: rgba(233, 102, 102, 0.726);
+        }
+
+        table {
+            text-align: center;
+            display: block;
+
+        }
+
+        #temperature {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #sun {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #wind {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        span {
+            color: rgba(245, 71, 71, 0.822);
+        }
+
+        img {
+            padding: 5px;
+            margin: 5px 90px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Weather Forecast</h2>
+
+    <input type="search" id="city">
+    <button id="submit">Submit</button>
+    <br>
+    <br>
+
+    <img src="https://www.noaa.gov/sites/default/files/styles/square_width_650/public/2021-02/FocusArea__Weather-02.jpg?h=5dc006f5&itok=20VGa8_F"
+        alt="Weather Forecast" id="forecast">
+
+
+
+    <h3>Weather of <span id="cityName"></span></h3>
+    <br>
+    <section id="table">
+        <div id="temperature">
+            <li>
+                <label for="temperature">Temperature</label><b><span id="temp"></span></b> °C
+            </li>
+            <br>
+            <li>
+                <label for="max">Max Temp</label><b><span id="max_temp"></span></b> °C
+            </li>
+            <br>
+            <li>
+                <label for="min">Min Temp</label><b><span id="min_temp"></span></b> °C
+            </li>
+            <br>
+        </div>
+        <br>
+
+        <div id="sun">
+            <li>
+                <label for="sunrise">Sunrise</label><b><span id="rise"></span></b>am
+            </li>
+            <br>
+            <li>
+                <label for="sunset">Sunset</label><b><span id="set"></span></b>pm
+            </li>
+            <br>
+            <li>
+                <label for="humidity">Humidity</label><b><span id="humidity"></span></b>%
+            </li>
+            <br>
+        </div>
+        <br>
+        <div id="wind">
+            <li>
+                <label for="windDegrees">Wind Degrees</label><b><span id="wind_degrees"></span></b> °C
+            </li>
+            <br>
+            <li>
+                <label for="windSpeed">Wind Speed</label><b><span id="wind_speed"></span></b>km\hr
+            </li>
+            <br>
+            <li>
+                <label for="cloudPct">Cloud Percent</label><b><span id="cloud_pct"></span></b>%
+            </li>
+            <br>
+            <li>
+                <label for="feelsLike">Feels Like</label><b><span id="feels_like"></span></b>
+            </li>
+            <br>
+        </div>
+        </div>
+
+        <br>
+        <div id="footer">
+            <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <script>
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': 'b45e96323fmshf5e4bc50d3b8a90p1e091djsnfb21cde4eb87',
+                    'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+                }
+            };
+            const getWeather = (city) => {
+                cityName.innerHTML = city;
+
+                fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city, options)
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log(response)
+
+                        cloud_pct.innerHTML = response.cloud_pct
+                        feels_like.innerHTML = response.feels_like
+                        humidity.innerHTML = response.humidity
+                        temp.innerHTML = response.temp
+                        wind_degrees.innerHTML = response.wind_degrees
+                        wind_speed.innerHTML = response.wind_speed
+
+
+                        const max = response.max_temp
+                        $max_temp = max + 6;
+                        max_temp.innerHTML = $max_temp;
+
+                        const min = response.min_temp
+                        $min_temp = min - 6;
+                        min_temp.innerHTML = $min_temp;
+
+
+                        const milliseconds1 = response.sunrise
+
+                        var seconds1 = Math.floor(milliseconds1 / 1000);
+                        var minutes1 = Math.floor(seconds1 / 60);
+                        var hours1 = Math.floor(minutes1 / 60);
+
+                        $seconds1 = seconds1 % 60;
+                        $minutes1 = minutes1 % 60;
+                        $hours1 = hours1 % 12 -1;
+
+                        rise.innerHTML = $hours1 + ":" + $minutes1 + ":" + $seconds1;
+
+                        const milliseconds2 = response.sunset
+
+                        var seconds2 = Math.floor(milliseconds2 / 1000);
+                        var minutes2 = Math.floor(seconds2 / 60);
+                        var hours2 = Math.floor(minutes2 / 60);
+
+                        $seconds2 = seconds2 % 60;
+                        $minutes2 = minutes2 % 60;
+                        $hours2 = hours2 % 12 -1;
+
+                        set.innerHTML = $hours2 + ":" + $minutes2 + ":" + $seconds2;
+
+                    })
+                    .catch(err => console.error(err))
+            }
+
+            submit.addEventListener("click", (e) => {
+                e.preventDefault()
+                getWeather(city.value);
+            })
+
+
+
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the reaction rate constant, (K) for saponification of ethyl acetate with
+        sodium hydroxide at ambient conditions for Continous Stiring tank Reactor.</h3>
+    <p>The stirred-tank reactor in the form of either a single tank, or more often a series of tanks
+        is particularly suitable for liquid-phase reactions, and is widely used in the organic
+        chemicals industry for medium and large scale production. It can form a unit in a
+        continuous process, giving consistent product quality, easy of automatic control, and low
+        manpower requirements.
+    </p><br>
+    <p>
+        Consider a system of N mixed flow reactors that are cascaded (connected in
+        series).Though the concentration is uniform in each reactor, there is a change in the
+        concentration as fluids move from reactor to reactor. This stepwise drop in concentration
+        suggests that the larger the number of units in series.
+    </p>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\continous.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="V">Flow Rate :</label>
+            <input type="number" step="0.01" id="flow" name="V" placeholder="Enter the flow rate">
+            <label for="V1">Time :</label>
+            <input type="number" step="0.01" id="time" name="V1" placeholder="Enter the time">
+            <label for="V2" >Volume of NaOH :</label>
+            <input type="number" step="0.01" id="volume" name="V2" placeholder="Enter the volume">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Flow Rate (LPH)</th>
+                <th bgcolor="lightgreen">Time (min)</th>
+                <th bgcolor="lightgreen">Volume of NaOH (ml)</th>
+                <th bgcolor="lightgreen">Conversion</th>
+                <th bgcolor="lightgreen">Space time τ (min)</th>
+                <th bgcolor="lightgreen">Rate Constant K (L/mole min)</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const flow = document.getElementById("flow").value;
+            const time = document.getElementById("time").value;
+            const volume = document.getElementById("volume").value;
+            
+            const init=0.1/2;
+            const a=0.002 - volume*0.1/1000;
+            const fin=a*100;
+            const x = 1 - fin/init;
+            let conversion=x.toFixed(2);
+            const space=0.75*30/flow;
+            const tot=space*fin*fin;
+            const constant=init/tot-fin/tot;
+            let rate=constant.toFixed(3);
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${flow}</td>
+                <td>${time}</td>
+                <td>${volume}</td>
+                <td>${conversion}</td>
+                <td>${space}</td> 
+                <td>${rate}</td>              
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

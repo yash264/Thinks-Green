@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the calcium hardness in the given water sample.</h3>
+    <p>Water hardness is an expression for the sum of the calcium and magnesium cat- ions concentration in a water sample. Calcium is usually found in highest concentrations in natural water. The presence of calcium in water results from deposits of lime stone, gypsum etc. Calcium is one of the principal cations involved in water hardness. Calcium hardness is the estimation of hardness due to calcium in water. These cations form insoluble salts with soap and decrease the cleaning effectiveness of soap. They also form hard water deposits in hot water heaters. The calcium content may range from zero to several hundred ppm.</p>
+    <h3>Environmental Consequence </h3>
+    <p>
+        The relative amounts of Calcium hardness, Carbonate and non-Carbonate hardness present in water are the factors while determining the most economical type of softening process. Determination of hardness serves as a basis for routine control of softening processes. Hard water typically contains high concentrations of Ca and Mg cations, which interfere with the use of the water for many applications. These ions diminish the effectiveness of soaps and detergents for cleansing operations. They diminish the drinking quality of water and they contribute to the accumulation of insoluble salt deposits in storage vessels or plumbing.
+    </p>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\hardness.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="V">Volume of sample :</label>
+            <input type="number" step="0.01" id="V" name="V" placeholder="Enter the volume">
+            <label for="V1">Burette Reading initial:</label>
+            <input type="number" step="0.01" id="V1" name="V1" placeholder="Enter the volume">
+            <label for="V2" >Burette Reading final :</label>
+            <input type="number" step="0.01" id="V2" name="V2" placeholder="Enter the volume">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Volume of Sample (ml)</th>
+                <th bgcolor="lightgreen">Burette Reading Initial </th>
+                <th bgcolor="lightgreen">Burette Reading Final </th>
+                <th bgcolor="lightgreen">Volume of EDTA (ml) </th>
+                <th bgcolor="lightgreen">Calcium Hardness (mg/L)</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const V = document.getElementById("V").value;
+            const V1 = document.getElementById("V1").value;
+            const V2 = document.getElementById("V2").value;
+            const a = (0.1 * (V2-V1) * 50 * 1000) / V;
+            let hardness = a.toFixed(2);
+            const b=(V2-V1);
+            let edta=b.toFixed(1);
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${V}</td>
+                <td>${V1}</td>
+                <td>${V2}</td> 
+                <td>${edta}</td>
+                <td>${hardness}</td>              
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

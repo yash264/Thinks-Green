@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the relation between the force produced and the change of momentum when a jet strikes a vane</h3>
+    <p>The Impact of a Jet apparatus demonstrates the force produced by a jet of water as it strikes a flat plate or hemispherical cup, which can be compared to the momentum flow rate in the jet. To extend the range of investigations, the 135° conical plate and 90° angled plate are used.
+    </p>
+    
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\impact.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <select id="option">
+                <option id="#">Type of Plate</opton>
+                <option id="flat">Flat Plate</option>
+                <option id="hemis">Hemispherical</option>
+            </select><br><br>
+            <label for="P">Mass :</label>
+            <input type="number" step="0.01" id="m" name="m" placeholder="Enter the mass">
+            <label for="H">Height :</label>
+            <input type="number" step="0.01" id="h" name="h" placeholder="Enter the height">
+            <label for="Q" >Time :</label>
+            <input type="number" step="0.01" id="t" name="t" placeholder="Enter the time"><br><br>
+            <label for="areaTank" >Area<sub>tank</sub> :</label>
+            <input type="number" step="0.01" id="a1" name="a1" placeholder="Enter the area">
+            <label for="areaNozzle" >Area<sub>nozzle</sub> :</label>
+            <input type="number" step="0.01" id="a2" name="a2" placeholder="Enter the area">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Type of Plate</th>
+                <th bgcolor="lightgreen">Flow Rate Q (kg/m<sup>3</sup>)</th>
+                <th bgcolor="lightgreen">Velocity (m/sec)</th>
+                <th bgcolor="lightgreen">Force<sub>theoratical</sub></th>
+                <th bgcolor="lightgreen">Force<sub>actual</sub></th>
+                <th bgcolor="lightgreen">Cofficient of Impact (K)</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const option=document.getElementById("option").value;
+            const flat=document.getElementById("flat").value;
+            const hemis=document.getElementById("hemis").value;
+            const m = document.getElementById("m").value;
+            const h = document.getElementById("h").value;
+            const t = document.getElementById("t").value;
+            const a1 = document.getElementById("a1").value;
+            const a2 = document.getElementById("a2").value;
+            
+            const a=h*a1/t;
+            const b=a/a2;
+            const f2=m*9.81;
+            if(option==flat){
+                var f1=1000*a*b;
+            }
+            if(option==hemis){
+                var f1=1000*a*b/1.414;
+            }
+            const k=f2/f1;
+
+            const rate=a.toFixed(2);
+            const velocity=b.toFixed(2);
+            const forceTh=f1.toFixed(2);
+            const forceAct=f2.toFixed(2);
+            const coff=k.toFixed(3);
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${option}</td>
+                <td>${rate}</td>
+                <td>${velocity}</td>
+                <td>${forceTh}</td>
+                <td>${forceAct}</td> 
+                <td>${coff}</td>             
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

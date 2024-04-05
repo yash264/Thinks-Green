@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thinks Green</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            background-color: rgba(110, 198, 233, 0.726);
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        #forecast {
+            height: 140px;
+        }
+
+        #city {
+            border-radius: 10px;
+            background-color: rgba(148, 141, 141, 0.118);
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        #city:hover {
+            background-color: rgba(100, 237, 141, 0.333);
+        }
+
+        #submit {
+            text-align: center;
+            border-radius: 7px;
+            background-color: rgba(165, 93, 233, 0.705);
+        }
+
+        #submit:hover {
+            background-color: rgba(233, 102, 102, 0.726);
+        }
+        #searchbtn {
+            text-align: center;
+            border-radius: 7px;
+            background-color: rgba(165, 93, 233, 0.705);
+        }
+
+        #searchbtn:hover {
+            background-color: rgba(233, 102, 102, 0.726);
+        }
+
+        table {
+            text-align: center;
+            display: flex;
+
+        }
+
+        li{
+            text-decoration:none;
+        }
+
+        #aa {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #bb {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #place{
+            text-align: center;
+        }
+
+        .air-quality{
+            font-size:20px;
+        }
+        .air-quality-status{
+            font-size:20px;
+        }
+
+        .location-container{
+            margin:6px;
+        }
+
+        #cc {
+            border: 2px solid black;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        span {
+            color: rgba(245, 71, 71, 0.822);
+        }
+
+        img {
+            padding: 5px;
+            margin: 5px 90px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="root">
+        <h2 class="heading">Air Quality Index</h2>
+    </div>
+    <div class="location-container">
+        <label for="error-msg" style="color: red;"></label>
+        <input type="text"  placeholder="Enter the city"  id="city" >
+        <button onclick="findAddress()">Know your Location</button>
+        Latitude :<input type="text"  placeholder="Enter the latitude"  id="lat" >
+        Longitude :<input type="text"  placeholder="Enter the longitude"  id="lon" ><br><br>
+        
+    </div>
+    <img src="https://www.businesshealthy.org/wp-content/uploads/2016/01/City-Air-logo.gif"
+        alt="Weather Forecast" id="forecast">
+        <button id="searchbtn">Get Air Quality</button>
+    <h3>Air Quality of <span id="cityName"></span></h3>
+    <div class="air-info">
+
+        <div id="place">
+            <span class="air-quality">....</span>
+            <span class="arr">&nbsp;&rarr;&nbsp</span>
+            <span class="air-quality-status">....</span>
+        </div>
+       
+        <div class="component-container">
+            
+            <section id="table">
+                <div id="aa">
+                    <li>
+                        <label for="component-names">Carbon Dioxide</label>
+                        <span class="co" id="co" name="co"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="component-names">Ammonia</label>
+                        <span id="nh3"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="component-names">Ozone</label>
+                        <span id="o3"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                </div>
+                <br>
+                <div id="bb">
+                    <li>
+                        <label for="component-names">Nitrozen Oxide</label>
+                        <span id="no"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="component-names">Nitrozen Oxide</label>
+                        <span id="no2"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="component-names">Sulphur Dioxide</label>
+                        <span id="so2"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                </div>
+                <br>
+                <div id="cc">
+                    <li>
+                        <label for="component-names">Fine Particle Matter</label>
+                        <span id="pm2_5"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                    <li>
+                        <label for="component-names">Coarse Particle Matter</label>
+                        <span id="pm10"></span>ug/m<sup>3</sup>
+                    </li>
+                    <br>
+                </div>
+            </section>
+            <br>
+
+            <div id="footer">
+                <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+            </div>
+                
+        </div>
+    </div>
+    <script>
+        const airQuality = document.querySelector(".air-quality")
+        const airQualityStat = document.querySelector(".air-quality-status")
+        const srchBtn = document.querySelector(".search-btn")
+        const errorLabel = document.querySelector("label[for='error-msg']")
+        const componentsEle = document.querySelector(".component-val")
+
+        const city=document.getElementById("city");
+        const latitude=document.getElementById("lat");
+        const longitude=document.getElementById("lon");
+        //const location=document.getElementById("location");
+
+        function findAddress(){
+
+            var url="https://nominatim.openstreetmap.org/search?format=json&limit=3&q="+city.value;
+            fetch(url)
+                .then(res=>res.json())
+                .then(data=>{
+                    const place=data[0].boundingbox;
+                    const lati=place[1];
+                    console.log(lati)
+                    const longi=place[2];
+                    console.log(longi)
+
+                    document.getElementById("lat").value=lati;
+                    document.getElementById("lon").value=longi;
+
+                    //latitude=place[1].value;
+                    //longitude=place[2].value;
+                    
+                    //air-quality.innerHTML=place[1];
+                    //air-quality-status.innerHTML=place[2];
+                    cityName.innerHTML=city.value;
+                })
+                .catch(err=>console.log("Error"))
+        }
+        
+
+
+        const appId = "9283def9f773657c54b23fd2c7684a9b"
+        const link = "https://api.openweathermap.org/data/2.5/air_pollution"
+
+
+        const airQualityIndex = (lat,lon) => {
+
+            fetch(`${link}?lat=${lat}&lon=${lon}&exclude=daily&appid=${appId}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    const aqi = data.list[0].main.aqi
+                    let airStat = "", color = ""
+
+                    airQuality.innerText = aqi
+                    switch (aqi) {
+                        case 1:
+                            airStat = "Good"
+                            color = "rgb(19,201,28)"
+                            break
+                        case 2:
+                            airStat = "Fair"
+                            color = "rgb(15,134,25)"
+                            break
+                        case 3:
+                            airStat = "Moderate"
+                            color = "rgb(201,204,13)"
+                            break
+                        case 4:
+                            airStat = "Poor"
+                            color = "rgb(204,83,13)"
+                            break
+                        case 5:
+                            airStat = "Very Poor"
+                            color = "rgb(284,13,13)"
+                            break
+                        default:
+                            airStat = "Unknown"
+                    }
+                    airQualityStat.innerText = airStat
+                    airQualityStat.style.color = color
+
+                    let component = data.list[0].components
+                    console.log(component)
+
+                    co.innerHTML = component.co
+                    nh3.innerHTML = component.nh3
+                    no.innerHTML = component.no
+                    no2.innerHTML = component.no2
+                    o3.innerHTML = component.o3
+                    pm2_5.innerHTML = component.pm2_5
+                    pm10.innerHTML = component.pm10
+                    so2.innerHTML = component.so2
+                })
+                .catch(error => console.log("ERROR"))
+        }
+
+
+        searchbtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            airQualityIndex(latitude.value,longitude.value);
+        })
+        /*location.addEventListener("click", (e) => {
+            e.preventDefault();
+            findAddress(city);
+        }) ;*/ 
+        ///location.addEventListener("click",(e)=>{
+    </script>
+</body>
+
+</html>
+
+

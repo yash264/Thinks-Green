@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine the convective heat transfer co-efficent for heated vertical cylinder losing heat to the ambient by free or natural convection.</h3>
+    <p>Corvection heat transfer occurs by the movement of fluid particles. If the motion of fluid
+        partides occurs by the variation of density of the fluid due to temperature difference, then
+        the heat transfer process Is called free or natural convection.
+        The rate of heat transfer in convection is glven by the Newton's Law of cooling i.e.
+        q= h*A*T
+        where h = Convective or film heat transfer co efficient, h depends upon the fluid
+        properties, type of flow and geometry of the surface. </h3>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\convection.png">
+    </p>
+    <h3>Calculation </h3>
+    <section >
+        <form class="form">
+            <label for="I">Current I :</label>
+            <input type="number" step="0.01" id="I" name="I" placeholder="Enter the current">
+            <label for="V">Voltage V :</label>
+            <input type="number" step="0.01" id="V" name="V" placeholder="Enter the voltage">
+            <br>
+            <br>
+            <label for="T1">Temperature T1 :</label>
+            <input type="number" step="0.01" id="T1" name="T1" placeholder="Enter the temperature">
+            <label for="T2">Temperature T2 :</label>
+            <input type="number" step="0.01" id="T2" name="T2" placeholder="Enter the temperature">
+            <label for="T3">Temperature T3 :</label>
+            <input type="number" step="0.01" id="T3" name="T3" placeholder="Enter the temperature">
+            <label for="T4">Temperature T4 :</label>
+            <input type="number" step="0.01" id="T4" name="T4" placeholder="Enter the temperature">
+            <br>
+            <br>
+            <label for="T5">Temperature T5 :</label>
+            <input type="number" step="0.01" id="T5" name="T5" placeholder="Enter the temperature">
+            <label for="T6">Temperature T6 :</label>
+            <input type="number" step="0.01" id="T6" name="T6" placeholder="Enter the temperature">
+            <label for="T7">Temperature T7 :</label>
+            <input type="number" step="0.01" id="T7" name="T7" placeholder="Enter the temperature">
+            <label for="T8">Temperature T8 :</label>
+            <input type="number" step="0.01" id="T8" name="T8" placeholder="Enter the temperature">    
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Heat Input (Q<sub>in</sub>)</th>
+                <th bgcolor="lightgreen">Mean Surface Temperature (<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Ambient Temperature (<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Heat Transfer co-efficent (w/m<sup>2</sup><sup>o</sup>C )</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const t1 = document.getElementById("T1").value;
+            const t2 = document.getElementById("T2").value;
+            const t3 = document.getElementById("T3").value;
+            const t4 = document.getElementById("T4").value;
+            const t5 = document.getElementById("T5").value;
+            const t6 = document.getElementById("T6").value;
+            const t7 = document.getElementById("T7").value;
+            const t8 = document.getElementById("T8").value;
+            const V = document.getElementById("V").value;
+            const I = document.getElementById("I").value;
+            const area=0.06362;
+            const a = t1/7 + t2/7 + t3/7 + t4/7 + t5/7 + t6/7 + t7/7;
+            let mean=a.toFixed(2);
+            const b=t8;
+            const q=V*I;
+            const h=q/(area*(a-b));            
+            let heat = h.toFixed(2);
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${q}</td>
+                <td>${mean}</td>
+                <td>${b}</td> 
+                <td>${heat}</td>              
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

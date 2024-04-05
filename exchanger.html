@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinks Green</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="32x32" href="Assets\favicon.ico">
+    <link rel="icon" type="image.png" sizes="16x16" href="Assets\favicon.ico">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 2px;
+        }
+
+        h1 {
+            background-color: rgba(164, 223, 105, 0.692);
+        }
+
+        #navigation {
+            text-decoration: none;
+            background-color: rgba(131, 198, 236, 0.623);
+            padding: 12px 60px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        #navigation a {
+            display: block;
+            padding: 4px;
+            text-decoration: none;
+            color: black;
+            float: left;
+            border-radius: 5px;
+            margin: 2px 15px;
+        }
+
+        a:hover {
+            background-color: rgb(247, 102, 102);
+        }
+
+        #image {
+            height: 60px;
+            padding: 20px;
+        }
+
+        #footer {
+            background-color: rgba(0, 0, 0, 0.945);
+            color: white;
+        }
+
+        #submit {
+            font-size: 16px;
+            text-align: center;
+            padding: 0x;
+            background-color: rgb(233, 114, 77);
+            border-radius: 6px;
+        }
+
+        #submit:hover {
+            background-color: rgb(162, 92, 228);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Department of Chemical Engineering</h1>
+    <nav id="navigation">
+        <a href="index.html">Home</a>
+    </nav>
+    <br>
+    <h3>To determine LMTD , effectiveness and overall heat transfer coefficient for parallel and
+        counter flow heat exchanger.</h3>
+    <p>
+        Heat exchanger is a device in which heat is transferred from one fluid to another.<br><br>
+        CLASSIFICATION OF HEAT EXCHANGERS<br><br>
+        1. Based on the nature of heat exchange process:<br>
+            i Direct contact type - Here the heat transfer takes place by direct mixing of hot and cold fluids.<br>
+            ii Indirect contact heat exchangers - Here the two fluids are separated through a metallic wall. ex Regenerators, Recuperators etc<br><br>
+
+        2. Based on the relative direction of fluid flow:<br>
+            i. Parallel flow heat exchanger - Here both hot and cold fluids flow in the same direction.<br>
+            ii. Counter flow heat exchanger - Here hot and cold fhuids flow in opposite direction.<br>
+            iii. Crossflow heat exchangers - Here the two fluids cross one another.
+
+    </p>
+    <h3>Equation Used</h3>
+    <p>
+        <img src="Assets\exchanger.png">
+    </p>
+    <h3>Calculation </h3>
+    <section>
+        <form class="form">
+            <label for="hot">Hot water flow rate :</label>
+            <input type="number" step="0.01" id="hot" name="hot" placeholder="Enter the flow rate">
+            <label for="cold">Cold water flow rate :</label>
+            <input type="number" step="0.01" id="cold" name="cold" placeholder="Enter the flow rate">
+            <br>
+            <br>
+            <select id="option">
+                <option >Choose type of exchanger</option>
+                <option id="parallel">Parallel flow heat exchanger</option>
+                <option id="counter">Counter flow heat exchanger</option>
+            </select>
+            <br>
+            <br>
+            <label for="T1">Temp cold inlet :</label>
+            <input type="number" step="0.01" id="T1" name="T1" placeholder="Enter the temperature">
+            <label for="T2">Temp cold outlet :</label>
+            <input type="number" step="0.01" id="T2" name="T2" placeholder="Enter the temperature">
+            <label for="T3">Temp hot inlet :</label>
+            <input type="number" step="0.01" id="T3" name="T3" placeholder="Enter the temperature">
+            <label for="T4">Temp hot outlet :</label>
+            <input type="number" step="0.01" id="T4" name="T4" placeholder="Enter the temperature">
+            <br>
+            <br>
+            <button id="submit">Save</button>
+        </form>
+        <br>
+        <table border="3" bgcolor="white" id="table">
+            <thead>
+                <th bgcolor="orange">Serial No.</th>
+                <th bgcolor="lightgreen">Heat exchanger type</th>
+                <th bgcolor="lightgreen">Heat transfer from hot water (kJ/s)</th>
+                <th bgcolor="lightgreen">Heat gain by cold fluid (kJ/s)</th>
+                <th bgcolor="lightgreen">Logrithmic mean Temp(<sup>o</sup>C)</th>
+                <th bgcolor="lightgreen">Overall heat transfer coefficient (J/m<sup>2</sup>K)</th>
+                <th bgcolor="lightgreen">Effectiveness</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <div id="footer">
+        <p>@ 2023 Designed, Developed and Hosted by National Informatics Center NIC</p>
+    </div>
+    <script>
+        const formEl = document.querySelector("form");
+        const tbodyEl = document.querySelector("tbody");
+        const tableEl = document.querySelector("table");
+        const form = document.querySelector("form");
+
+        function onAddWebsite(e) {
+            e.preventDefault();
+            const option = document.getElementById("option").value;
+            const parallel = document.getElementById("parallel").value;
+            const counter = document.getElementById("counter").value;
+            const hot = document.getElementById("hot").value;
+            const cold = document.getElementById("cold").value;
+            const t1 = document.getElementById("T1").value;
+            const t2 = document.getElementById("T2").value;
+            const t3 = document.getElementById("T3").value;
+            const t4 = document.getElementById("T4").value;
+            console.log(option);
+            function getBaseLog(x, y) {
+                return Math.log(y) / Math.log(x);
+            } 
+
+            m=hot*4186.8*(t4-t3)/1000;
+            let q1=m.toFixed(2);
+            n=cold*4186.8*(t2-t1)/1000; 
+            let q2=n.toFixed(2);
+
+            if(option==parallel){
+                var a = t3-t1;
+                var b = t4-t2;
+            } 
+            if(option==counter){
+                var a = t4-t1;
+                var b = t3-t2;
+            }
+            const c=b/a;
+            const d = getBaseLog(10, c);
+            const lmtd=b/d - a/d;
+            let mean=lmtd.toFixed(2);
+
+            const q= q1/2 + q2/2;
+            const coff=q/(lmtd*0.058875);
+            let heat=coff.toFixed(2);
+
+            if(hot>cold){
+                var effectiveness= t3/a - t4/a;
+            }
+            if(hot<cold){
+                var effectiveness= t2/a - t1/a;
+            } 
+            let effect=effectiveness.toFixed(2);
+            /*          
+            const r1=5,r2=10;
+            const x= a-b;
+            const y =q/x;
+            const z= -y/62.8;
+            let conductivity = z.toFixed(2);*/
+            
+
+            tbodyEl.innerHTML += `
+            <tr>
+                <td bgcolor="lightblue">*</td>
+                <td>${option}</td>
+                <td>${q1}</td>
+                <td>${q2}</td>
+                <td>${mean}</td> 
+                <td>${heat}</td> 
+                <td>${effect}</td>             
+                <td><button class="deleteBtn" id="submit">Delete</button></td>
+            </tr>
+            `;
+        };
+
+        function onDeleteRow(e) {
+            if (!e.target.classList.contains("deleteBtn")) {
+                return;
+            }
+            const btn = e.target;
+            btn.closest("tr").remove();
+        }
+
+        formEl.addEventListener("submit", onAddWebsite);
+        tableEl.addEventListener("click", onDeleteRow);
+    </script>
+</body>
+</html>

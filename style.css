@@ -1,0 +1,196 @@
+*{
+  padding:2px;
+  margin:2px;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body{
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: rgb(253, 253, 253);
+}
+
+h1{
+  background-color: rgba(164, 223, 105, 0.692);
+}
+
+nav{
+  background: #81b9e4;
+  height:94px;
+  width:100%;
+}
+
+nav ul{
+  float:right;
+  margin-right:20px;
+}
+
+nav ul li{
+  display:inline-block;
+  line-height:80px;
+  margin:0 5px;
+}
+
+nav ul li a{
+  color:black;
+  text-transform: uppercase;
+}
+
+a.active,a:hover{
+  background:#f34d5b;
+}
+
+.checkbtn{
+  font-size:30px;
+  color:white;
+  float:right;
+  line-height:80px;
+  margin-right:40px;
+  cursor:pointer;
+}
+
+#check{
+  display:none;
+}
+
+@media(max-width:952px){
+  label.logo{
+      font-size:30px;
+      padding-left:50px;
+  }
+  nav ul li a{
+      font-size:16px;
+  }
+}
+
+@media(max-width){
+  .checkbtn{
+      display:block;
+  }
+  ul{
+      position:fixed;
+      width:100%;
+      height:100vh;
+      background:#2c3e50;
+      top:100px;
+      text-align:center;
+  }
+  nav ul li{
+      display:block;
+  }
+  nav ul li{
+      font-size:20px;
+  }
+  a:hover,a.active{
+      background:none;
+      color:#0082e6;
+  }
+  #check:checked ~ul{
+      left:0;
+  }
+}
+
+#image{
+  height:130px;
+  padding: 20px;
+}
+#image:hover{
+  height:160px;
+}
+
+#footer{
+  background-color: rgba(0, 0, 0, 0.945);
+  color:white;
+  height:70px;
+  text-align: center;
+}
+
+.imgSlider{
+  float:left;
+  width:45%;
+  height:300px;
+  margin-right:15px;
+  border-radius: 10px;
+  background-image: url("https://cdn.pixabay.com/photo/2022/11/06/09/52/ai-generated-7573587_640.jpg");
+  background-size: 100% 100%;
+  box-shadow: rgba(149,157,165,0.2) 0px 8px 24px;
+  animation: changeImage 20s  linear infinite;
+}
+
+@keyframes changeImage{
+  0%{
+    background-image: url("https://media.istockphoto.com/id/1195289766/photo/sugar-factory-industry-line-production-cane-process.jpg?s=612x612&w=0&k=20&c=MjyxLZ4TZ3vRvM6jRaUolMeVXg-rtLhEZkX3VbzpN8w=");
+  }
+  20%{
+    background-image: url("https://cdn.pixabay.com/photo/2022/11/06/09/52/ai-generated-7573587_640.jpg");
+  }
+  40%{
+    background-image: url("https://media.istockphoto.com/id/1371910917/photo/renewable-energy-based-green-businesses-can-limit-climate-change-and-global-warming-clean-and.jpg?s=612x612&w=0&k=20&c=s4pIb5gaykm64SVd3m-7r4TIZfIzSWwFtMxUoWwTOxI=");
+  }
+  60%{
+    background-image: url("https://t3.ftcdn.net/jpg/05/73/96/92/360_F_573969248_rkDRwe3jOYGENhrF8tlVw7GFHqSXxq3j.jpg");
+  }
+  80%{
+    background-image: url("https://cdn.pixabay.com/photo/2014/04/17/23/26/environmental-protection-326923_1280.jpg");
+  }
+  100%{
+    background-image: url("https://media.istockphoto.com/id/477110708/photo/weather-forecast.webp?b=1&s=170667a&w=0&k=20&c=cJDnRfarWTRVrTRGBv82aQUYmkgZp3FTCSLKLXdrcCU=");
+  }
+}
+
+
+@media (orientation:portrait) {
+  #navigation a {
+      display: flex;
+      text-decoration: none;
+      color: black;
+      float: left;
+      border-radius: 5px;
+
+  }
+}
+
+#calculator {
+  height: 100px;
+  display:inline-block;
+  margin: 50px;
+}
+#calculator:hover{
+  height:130px;
+}
+
+ul{
+  list-style:none;
+  background: #81b9e4;
+}
+ul li{
+  display:inline-block;
+  position:relative;
+}
+ul li a{ 
+  padding:20 px 25px;
+  color:rgb(22, 21, 22);
+  text-decoration: none;
+  text-align: center;
+  font-size: 17px;
+}
+ul li ul.dropdown li{
+  display:block;
+}
+ul li ul.dropdown{
+  width:100%;
+  background:rgb(102, 113, 117);
+  position:absolute;
+  z-index:999;
+  display:none;
+}
+ul li a:hover{
+  background:rgb(238, 140, 94);
+}
+ul li:hover ul.dropdown{
+  display:block;
+}
