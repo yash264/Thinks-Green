@@ -130,8 +130,8 @@
             const volume = document.getElementById("volume").value;
             
             const init=0.1/2;
-            const a=0.002 - volume*0.1/1000;
-            const fin=a*100;
+            const a=0.001 - volume*0.1/1000;
+            const fin=a*50;
             const x = 1 - fin/init;
             let conversion=x.toFixed(2);
             const space=0.75*30/flow;
