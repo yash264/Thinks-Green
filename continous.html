@@ -107,6 +107,7 @@
                 <th bgcolor="lightgreen">Flow Rate (LPH)</th>
                 <th bgcolor="lightgreen">Time (min)</th>
                 <th bgcolor="lightgreen">Volume of NaOH (ml)</th>
+                 <th bgcolor="lightgreen">C<sub>A</sub>(mole/Litre)</th>
                 <th bgcolor="lightgreen">Conversion</th>
                 <th bgcolor="lightgreen">Space time τ (min)</th>
                 <th bgcolor="lightgreen">Rate Constant K (L/mole min)</th>
@@ -131,7 +132,8 @@
             
             const init=0.1/2;
             const a=0.001 - volume*0.1/1000;
-            const fin=a*50;
+            const fin=a*100;
+            let ca=fin.toFixed(3);
             const x = 1 - fin/init;
             let conversion=x.toFixed(2);
             const space=0.75*60/flow;
@@ -145,6 +147,7 @@
                 <td>${flow}</td>
                 <td>${time}</td>
                 <td>${volume}</td>
+                <td>${ca}</td>
                 <td>${conversion}</td>
                 <td>${space}</td> 
                 <td>${rate}</td>              
